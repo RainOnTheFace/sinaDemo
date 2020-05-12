@@ -25,12 +25,12 @@ o    实现一个简版微博点赞服务，要求：
 
 ### 介绍
 
-####1.开发环境  
+#### 1.开发环境  
 jdk 1.8  
 mysql   
 redis    
 
-####2.建表语句  
+#### 2.建表语句  
 ```CREATE TABLE `love` (
      `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT COMMENT 'id',
      `status_id` bigint(20) unsigned NOT NULL COMMENT '微博ID',
@@ -47,11 +47,11 @@ redis
 **查询过滤：先从redis缓存中查询，没有再从数据库中查询**  
 
 
-####理想架构图
+#### 理想架构图  
 ![理想架构图](https://github.com/RainOnTheFace/sinaDemo/blob/master/picture/sa.jpg)
-####查询，点赞流程
+#### 查询，点赞流程  
 ![查询，点赞流程](https://github.com/RainOnTheFace/sinaDemo/blob/master/picture/sinaDemo1.jpg)
-####异步入库流程
+#### 异步入库流程  
 ![异步入库流程](https://github.com/RainOnTheFace/sinaDemo/blob/master/picture/sinaDemo2.jpg)
 
 
