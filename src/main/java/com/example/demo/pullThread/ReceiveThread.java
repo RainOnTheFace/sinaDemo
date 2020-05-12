@@ -9,15 +9,18 @@ import lombok.extern.slf4j.Slf4j;
 
 import java.util.BitSet;
 
+/**
+ * 接受线程，模拟消息队列的接受端
+ */
 @Slf4j
-public class InsertThread implements Runnable {
+public class ReceiveThread implements Runnable {
 
     private RedisCache redisCache;
 
 
     private LikeService likeService;
 
-    public InsertThread() {
+    public ReceiveThread() {
         this.redisCache = ApplicationContextProvider.getBean(RedisCache.class);
         this.likeService = ApplicationContextProvider.getBean(LikeService.class);
     }
