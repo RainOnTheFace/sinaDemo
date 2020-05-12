@@ -30,7 +30,7 @@ jdk 1.8
 mysql   
 redis    
 
-####2.建表语句
+####2.建表语句  
 ```CREATE TABLE `love` (
      `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT COMMENT 'id',
      `status_id` bigint(20) unsigned NOT NULL COMMENT '微博ID',
