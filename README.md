@@ -1,4 +1,5 @@
-# 要求
+#sinaDemo
+###要求
 具体题目如下：
 o    实现一个简版微博点赞服务，要求：
 
@@ -22,21 +23,32 @@ o    实现一个简版微博点赞服务，要求：
 
 §  查询赞接口：public boolean isLiked(int uid, int statusId) 
 
-#### 介绍
+### 介绍
 1.开发环境 
 jdk 1.8  
 mysql 
 redis   
 
-#### 软件架构
-需要redis 或者RabbtiMQ
+### 软件架构
+过滤核心思想：布隆算法+BitMap
+点赞：异步沉淀
+查询过滤：先从redis缓存中查询，没有再从数据库中查询。
 
-``````
+
+
+![理想架构图](https://github.com/RainOnTheFace/sinaDemo/blob/master/picture/sa.jpg)
+
+![查询，点赞流程](https://github.com/RainOnTheFace/sinaDemo/blob/master/picture/sinaDemo1.jpg)
+
+![异步入库流程](https://github.com/RainOnTheFace/sinaDemo/blob/master/picture/sinaDemo2.jpg)
 
 
 #### 使用说明
 
-1.  http://localhost:8080/page1
+1. 配置数据库和redis
+2. 启动程序
+3.访问一下url 
+http://localhost:8080/page1
 
 
 
