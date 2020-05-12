@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+</head>
+<body style="height:100%;width: 100%">
+uid<br/>
+<input id="uid" type="text"/>
+<br/>statusId:<br/>
+<input id="statusId" type="text"/>
+<br/>
+<button onclick="isLiked()">isLiked</button>
+<button id="click" onclick="like()">like</button>
+<div id="message">
+</div>
+</body>
+<script type="text/javascript" src="/axios.min.js"></script>
+<script language="JavaScript" src="/jquery.min.js"></script>
+<script type="text/javascript">
+
+
+    //将消息显示在网页上
+    function setMessageInnerHTML(innerHTML) {
+        document.getElementById('message').innerHTML += innerHTML + '<br/>';
+    }
+
+
+    //点赞
+    function like() {
+        var uid = document.getElementById('uid').value;
+        var statusId = document.getElementById('statusId').value;
+        $.ajax({
+            type: "GET",
+            url: "/system/like",
+            data: {'uid': uid, 'statusId': statusId},
+            success: function (result) {
+                console.log(result);
+            },
+            error: function (e) {
+                console.log(e)
+            }
+        })
+    }
+
+
+    //查询点赞
+    function isLiked() {
+        var uid = document.getElementById('uid').value;
+        var statusId = document.getElementById('statusId').value;
+        $.ajax({
+            type: "GET",
+            url: "/system/isLiked",
+            data: {'uid': uid, 'statusId': statusId},
+            success: function (result) {
+                console.log(result);
+                setMessageInnerHTML("msg=" + result.msg + "  data=" + result.data);
+            },
+            error: function (e) {
+                console.log(e)
+            }
+        })
+    }
+
+</script>
+</html>

@@ -1,0 +1,28 @@
+server:
+  port: 8080
+
+
+#公共配置与profiles选择无关 mapperLocations指的路径是src/main/resources
+mybatis:
+  typeAliasesPackage: com.example.demo.entity
+  mapperLocations: classpath:mapper/*.xml
+spring:
+  redis:
+    database: 0
+    host: 127.0.0.1
+    port: 6379
+    password:
+    timeout: 10000
+  datasource:
+    url: jdbc:mysql://localhost:3306/ry_vue
+    username: root
+    password: wqxin@1
+    driver-class-name: com.mysql.jdbc.Driver
+    # 使用druid数据源
+    type: com.alibaba.druid.pool.DruidDataSource
+
+
+#静态资源映射路径
+  mvc:
+    static-path-pattern: /**
+
