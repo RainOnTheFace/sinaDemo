@@ -36,6 +36,7 @@ uid<br/>
             url: "/system/like",
             data: {'uid': uid, 'statusId': statusId},
             success: function (result) {
+                setMessageInnerHTML("msg=" + result.msg + "  data=" + result.data);
                 console.log(result);
             },
             error: function (e) {
