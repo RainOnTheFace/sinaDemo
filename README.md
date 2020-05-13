@@ -34,7 +34,7 @@ redis
 ```CREATE TABLE `love` (
      `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT COMMENT 'id',
      `status_id` bigint(20) unsigned NOT NULL COMMENT '微博ID',
-     `like_user` text COMMENT '点赞用户',
+     `like_user` mediumtext COMMENT '点赞用户',
      `version` int(10) DEFAULT NULL COMMENT '版本',
      PRIMARY KEY (`id`),
      UNIQUE KEY `status_id_key` (`status_id`)
@@ -61,6 +61,9 @@ redis
 **2. 启动程序**  
 **3.访问一下url**  
 http://localhost:8080/page1  
+
+
+
 
 
 

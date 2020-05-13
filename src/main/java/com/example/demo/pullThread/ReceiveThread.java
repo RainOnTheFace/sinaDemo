@@ -6,7 +6,6 @@ import com.example.demo.entity.Love;
 import com.example.demo.redis.RedisCache;
 import com.example.demo.service.LikeService;
 import lombok.extern.slf4j.Slf4j;
-
 import java.util.BitSet;
 
 /**
@@ -30,20 +29,21 @@ public class ReceiveThread implements Runnable {
 
         while (true) {
             try {
-              Object likeQueen = redisCache.popCacheList("likeQueen");
+                Object likeQueen = redisCache.popCacheList("likeQueen");
 
                 if (likeQueen != null) {
 
 
                     LoveDto dto = (LoveDto) likeQueen;
-                    log.info("队列接受端 接收到: {}",dto);
+                    log.info("队列接受端 接收到: {}", dto);
                     //重新更新标志
                     Boolean reUpdate = true;
-                    while (reUpdate) {
+
+                    while (reUpdate ) {
                         Love like = likeService.selectByStatusId(dto.getStatusId());
                         if (like == null) {
                             //微博被第一次点赞
-                           reUpdate= this.insertLike(dto);
+                            reUpdate = this.insertLike(dto);
 
                         } else {
                             reUpdate = this.updateLike(dto, like);
@@ -81,18 +81,24 @@ public class ReceiveThread implements Runnable {
         for (long l : longs) {
             sb.append(l).append(",");
         }
-        String setStr=sb.substring(0, sb.length() - 1);
+        String setStr = sb.substring(0, sb.length() - 1);
         like.setLikeUser(setStr);
-        int i = likeService.updateByVersion(like);
+        try {
+            int i = likeService.updateByVersion(like);
+            if (i == 1) {
+                //更新成功，不需要重新更新
+                //刷新redis缓存
+                redisCache.setCacheObject(String.valueOf(dto.getStatusId()), setStr);
+                return false;
+            } else {
+                //更新失败,需要重新更新
+                return true;
+            }
+        } catch (Exception e) {
+            log.error("uid:{} 点赞 status:{} 更新失败！失败逻辑未处理",dto.getUid(),dto.getStatusId());
+            e.printStackTrace();
+            return  false;
 
-        if (i == 1) {
-            //更新成功，不需要重新更新
-            //刷新redis缓存
-            redisCache.setCacheObject(String.valueOf(dto.getStatusId()),setStr);
-            return false;
-        } else {
-            //更新失败,需要重新更新
-            return true;
         }
     }
 
@@ -112,7 +118,7 @@ public class ReceiveThread implements Runnable {
             sb.append(l).append(",");
         }
         //设置参数
-        String setStr=sb.substring(0, sb.length() - 1);
+        String setStr = sb.substring(0, sb.length() - 1);
         like.setLikeUser(setStr);
         like.setStatusId(dto.getStatusId());
         like.setVersion(0);
@@ -122,15 +128,17 @@ public class ReceiveThread implements Runnable {
             if (i == 1) {
                 //更新成功，不需要重新更新
                 //刷新redis缓存
-                redisCache.setCacheObject(String.valueOf(dto.getStatusId()),setStr);
+                redisCache.setCacheObject(String.valueOf(dto.getStatusId()), setStr);
                 return false;
             } else {
                 //更新失败,需要重新更新
                 return true;
             }
         } catch (Exception e) {
+            log.error("uid:{} 点赞 status:{} 插入失败！失败逻辑未处理",dto.getUid(),dto.getStatusId());
+
             e.printStackTrace();
-            return true;
+            return false;
         }
 
 

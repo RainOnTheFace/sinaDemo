@@ -28,6 +28,10 @@ public class LikeServiceImpl implements LikeService {
     @Override
     public RestResp like(Integer uid, Integer statusId) {
         log.info("like  uid={},statusId={}",uid,statusId);
+        //特殊处理：超过1亿，bitMap占用内存过大，不能沉淀
+        if(uid>100000000){
+           return new RestResp("fail","点赞失败，暂不不支持一亿以上的uid点赞",null);
+        }
         //验证是否已经点赞
         if (!this.isLiked(uid, statusId)) {
             LoveDto dto = new LoveDto();
