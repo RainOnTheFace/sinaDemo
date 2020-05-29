@@ -53,6 +53,7 @@ public class ReceiveThread implements Runnable {
                 } else {
                     //如果对列中没有数据，则等待1s
                     Thread.sleep(1000);
+
                 }
 
             } catch (InterruptedException e) {
