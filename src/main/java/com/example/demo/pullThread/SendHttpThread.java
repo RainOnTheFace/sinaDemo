@@ -38,7 +38,7 @@ public class SendHttpThread implements Runnable {
 
         Long start =System.currentTimeMillis();
 
-        for (int i = 0; i < 10; i++) {
+        for (int i = 0; i < 1; i++) {
 
             threadPoolTaskExecutor.execute(new Runnable() {
                 @Override

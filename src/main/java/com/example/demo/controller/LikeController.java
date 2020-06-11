@@ -91,9 +91,7 @@ public class LikeController {
         love.setStatusId(uid);
         love.setLikeUser("随便");
 
-      //  Thread.currentThread().sleep(10);
 
-         // this.wait(1000);
 
             return new RestResp("success", "查询成功", love);
        }
