@@ -19,6 +19,8 @@
 		<springboot.druid.version>1.1.21</springboot.druid.version>
 		<pagehelper.spring.boot.starter.version>1.2.5</pagehelper.spring.boot.starter.version>
 		<mybatisplus.version>3.3.1</mybatisplus.version>
+		<geotools.version>21.2</geotools.version>
+
 	</properties>
 
 	<dependencies>
@@ -103,6 +105,24 @@
 			<groupId>org.projectlombok</groupId>
 			<artifactId>lombok</artifactId>
 			<version>1.16.22</version>
+		</dependency>
+
+
+		<dependency>
+			<groupId>org.geotools</groupId>
+			<artifactId>gt-main</artifactId>
+			<version>${geotools.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.geotools</groupId>
+			<artifactId>gt-geojson</artifactId>
+			<version>${geotools.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.geotools</groupId>
+			<artifactId>gt-cql</artifactId>
+			<version>${geotools.version}</version>
 		</dependency>
 
 	</dependencies>
